@@ -1,0 +1,220 @@
+/* start layout */
+
+:root {
+    --primary: #4681a3;
+    --primary-light: rgba(70, 129, 163, 0.5);
+    --accent: #2c435b;
+    --accent-light: rgba(44, 67, 91, 0.51);
+    --text: #e8e8e8;
+    --font: 'Patua One', sans-serif;
+}
+
+body {
+    display: grid;
+    grid-template-rows: 1fr 56px;
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#logo {
+    display: flex;
+    align-items: center;
+}
+
+#logo > * {
+    margin: 0 4px;
+}
+
+#container {
+    grid-row: 1;
+}
+
+#body {
+    display: grid;
+
+    height: 100%;
+    width: 100%;
+
+    grid-template-rows: 56px 4fr 3fr;
+}
+
+footer {
+    grid-row: 2;
+    line-height: 56px;
+    text-align: center;
+}
+
+#calculator {
+    position: fixed;
+    max-width: 800px;
+    width: 100vw;
+    max-height: 480px;
+    height: 100vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    opacity: 0;
+    top: -480px;
+    transition: 0.3s;
+}
+
+#calculator.visible {
+    top: 50%;
+    opacity: 1;
+}
+
+#calc-btn *, #day * {
+    display: block;
+}
+
+#day {
+    flex-direction: column;
+}
+
+.calculator span.error {
+    color: #b22328;
+}
+
+#calc-btn, #day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* end layout */
+
+/* start styling */
+
+#viewer {
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 19pt;
+}
+
+button:focus {
+    filter: brightness(0.85);
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+button {
+    user-select: none;
+    background: var(--accent);
+    padding: 8px 20px;
+    color: var(--text);
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+header button {
+    background: var(--primary);
+}
+
+header button:focus {
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+body {
+    background: var(--primary);
+}
+
+header {
+    background: var(--accent);
+    box-shadow: 0 0 4px 0 #313241;
+}
+
+:root {
+    font-family: "Catamaran", sans-serif;
+}
+
+#day-indicator {
+    font: bold 45pt var(--font);
+    user-select: none;
+    color: var(--text);
+}
+
+@media screen and (max-width: 800px) {
+    #day-indicator {
+        font-size: 36pt;
+    }
+}
+
+#calculator {
+    overflow: hidden;
+    background: var(--primary);
+    box-shadow: 0 0 3px 0 #313241;
+    border-radius: 4px;
+}
+
+#calculator header {
+    padding: 12px;
+    justify-content: space-between;
+}
+
+footer {
+    color: var(--text);
+    font-size: 16pt;
+}
+
+.calculator:not(.visible) {
+    display: none;
+}
+
+#calculator .calculator.visible ~ #open-prompt {
+    display: none;
+}
+
+.calculator {
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+}
+
+.calculator > * {
+    width: 100%;
+    box-sizing: border-box;
+    color: var(--text);
+}
+
+.calculator input:focus {
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.calculator input {
+    border: 2px solid var(--accent);
+    background: var(--accent-light);
+    color: var(--text);
+    padding: 4px;
+    border-radius: 3px;
+    margin: 5px 0;
+    transition: 0.1s;
+}
+
+#open-prompt {
+    color: var(--text);
+    text-align: center;
+    position: relative;
+    top: 25%;
+    transform: translateY(-25%);
+    font-family: var(--font);
+}
+
+header span {
+    color: var(--text);
+    font-size: 15pt;
+    display: block;
+    width: fit-content;
+}

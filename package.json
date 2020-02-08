@@ -1,0 +1,10 @@
+{
+    "name": "day_tracker",
+    "version": "1.0.0",
+    "dependencies": {},
+    "devDependencies": {
+        "@types/node": "^13.7.0",
+        "@types/source-map-support": "^0.5.1",
+        "source-map-support": "^0.5.16"
+    }
+}
