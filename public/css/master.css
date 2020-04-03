@@ -1,14 +1,5 @@
 /* start layout */
 
-:root {
-    --primary: #4681a3;
-    --primary-light: rgba(70, 129, 163, 0.5);
-    --accent: #2c435b;
-    --accent-light: rgba(44, 67, 91, 0.51);
-    --text: #e8e8e8;
-    --font: 'Patua One', sans-serif;
-}
-
 body {
     display: grid;
     grid-template-rows: 1fr 56px;
