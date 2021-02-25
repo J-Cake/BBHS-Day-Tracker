@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Byron Bay High School Day Tracker</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Catamaran|Patua+One&display=swap" rel="stylesheet">
+    <meta content="initial-scale=1" name="viewport">
+
+    <link href="https://jschneiderprojects.com.au/css/master.css" rel="stylesheet"/>
+    <link href="/css/ui.css" rel="stylesheet"/>
+    <!--    <link href="/css/colours.css" rel="stylesheet"/>-->
+    <!--    <link href="/css/master.css" rel="stylesheet"/>-->
+    <!--    <link href="/css/viewer-layout.css" rel="stylesheet"/>-->
+    <!--    <link href="/css/viewer.css" rel="stylesheet"/>-->
+
+    <script src="/js/index.js"></script>
+</head>
+<body>
+<div id="heading">
+    <header id="header">
+        <nav>
+            <a href="https://jschneiderprojects.com.au" id="img">
+                <img src="https://avatars2.githubusercontent.com/u/29561775?s=400&u=9cd8cb9…&v=4">
+            </a>
+            <a href="/">Tracker</a>
+            <a href="/timetable">My Time Table</a>
+            <a href="/login">Log in</a>
+            <a href="/request_account">Request Account</a>
+        </nav>
+        <script>addEventListener('load', () => document.querySelector("#header").classList.add('load'));</script>
+        <script>addEventListener('click', () => document.querySelector("header").classList.toggle("open"));</script>
+
+    </header>
+    <div id="buffer"></div>
+    <div id="backdrop"></div>
+    <div id="title">DayTracker</div>
+</div>
+
+<section id="container">
+    <section id="body">
+        <div class="card">
+            <div id="day">
+                <span id="viewer"></span>
+                <span id="day-indicator">Fetching Day...</span>
+
+                <button id="refresh-btn">
+                    <img alt="refresh" src="https://icongr.am/feather/rotate-ccw.svg?size=24&color=e8e8e8"/>
+                </button>
+            </div>
+
+            <div id="calc-btn">
+                <button id="open-btn">Open Calculator</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator">
+        <header>
+            <div id="options">
+                <button id="abs-btn">Absolute Date</button>
+                <button id="rlv-btn">Relative Date</button>
+            </div>
+
+            <button id="close-btn"><img alt="x" src="https://icongr.am/feather/x.svg?size=12&color=e8e8e8"/></button>
+        </header>
+
+        <div class="calculator" id="absolute-date">
+            <label for="date">Enter a date to calculate its day value.</label>
+            <span class="error"></span>
+            <input id="date" type="date"/>
+
+            <button id="absolute-calc-btn">Calculate</button>
+        </div>
+        <div class="calculator" id="relative-date">
+            <label for="days">Enter the amount of days relative to today to determine its day value.</label>
+            <span class="error"></span>
+            <input id="days" min="1" type="number" value="1"/>
+
+            <button id="relative-calc-btn">Calculate</button>
+        </div>
+
+        <div id="open-prompt">
+            <img alt="calculator" src="https://icongr.am/feather/book-open.svg?size=24&color=e8e8e8"/>
+            <h2>Please Select a calculator to open</h2>
+        </div>
+        <footer>By Jacob Schneider</footer>
+    </section>
+</section>
+</body>
+</html>

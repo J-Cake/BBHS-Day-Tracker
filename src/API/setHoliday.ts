@@ -1,16 +1,17 @@
 import * as fs from "fs";
 import dataObj from "./data";
 import {isValidKey} from "./keys";
+import getCurrentTime from "./getCurrentTime";
 
 const data: dataObj = JSON.parse(fs.readFileSync('./data.json', "utf8"));
 
-export default function (holidayActive: boolean, reset: boolean = false, accessCode: string): string {
+export default async function (holidayActive: boolean, reset: boolean = false, accessCode: string): Promise<string> {
     if (isValidKey(accessCode)) {// confirm code validity
         data.isHoliday = holidayActive;
 
         if (holidayActive) {
             data.holidays.push({
-                start: new Date().getTime(),
+                start: new Date(await getCurrentTime()).getTime(),
                 end: -1
             });
 
@@ -19,7 +20,7 @@ export default function (holidayActive: boolean, reset: boolean = false, accessC
             else if (reset === true)
                 data.restartCounterAfterHoliday.push(data.holidays.length - 1);
         } else
-            data.holidays[data.holidays.length - 1].end = new Date().getTime();
+            data.holidays[data.holidays.length - 1].end = new Date(await getCurrentTime()).getTime();
 
         data.dateUpdated = Date.now();
 

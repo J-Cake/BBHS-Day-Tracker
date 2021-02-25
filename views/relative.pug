@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    form(action="/relative", method="post")
+        input(type="number", min="1", step="1", name="date")
+
+        button(type="submit") Calculate

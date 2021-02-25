@@ -2,6 +2,7 @@ import * as fs from "fs";
 import dataObj from "./data";
 import setDay from "./setDay";
 import getKeys, {keys} from './keys';
+import getCurrentTime from './getCurrentTime';
 
 const data: dataObj = JSON.parse(fs.readFileSync('./data.json', "utf8"));
 const keys: keys = getKeys();
@@ -20,22 +21,22 @@ const betweenHoliday = function (date: Date): boolean {
     return !!lastStart;
 };
 
-export default function getDay(target?: number, relative?: boolean): string {
+export default async function getDay(target?: number, relative?: boolean): Promise<string> {
     if (target && target < 0)
         throw {
             code: 400,
             message: "Please provide a positive value for `target`."
         };
-    else if (target && !relative && daysBetween(new Date(), new Date(target)) < 0)
+    else if (target && !relative && daysBetween(new Date(await getCurrentTime()), new Date(target)) < 0)
         throw {
             code: 400,
             message: "Past dates are invalid."
         };
 
-    const targetDate: Date = (function (): Date {
+    const targetDate: Date = await (async function (): Promise<Date> {
         if (target)
             if (relative) {
-                const date = new Date();
+                const date = new Date(await getCurrentTime());
                 console.log(date.toLocaleDateString(), date.getDate());
                 date.setDate(date.getDate() + target);
 
@@ -43,7 +44,8 @@ export default function getDay(target?: number, relative?: boolean): string {
             } else
                 return new Date(target);
         else
-            return new Date(/*Julia*/);
+            return new Date(await getCurrentTime());
+        // new Date('Julia')
     })();
 
     let currentDate: Date = (function () { // use the last resetting holiday as a start point to reduce the workload
@@ -75,5 +77,7 @@ export default function getDay(target?: number, relative?: boolean): string {
     return data.dayCycle[day];
 }
 
-const today = new Date();
-today.setDate(today.getDate());
+(async function () {
+    const today = new Date(await getCurrentTime());
+    today.setDate(today.getDate());
+})();

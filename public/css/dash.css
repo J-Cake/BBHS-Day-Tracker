@@ -1,0 +1,13 @@
+body {
+    display: grid;
+    grid-template-rows: 1fr 56px;
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+header {
+    padding: 12px;
+}

@@ -1,0 +1,35 @@
+doctype html
+html
+    head
+        meta(charset="UTF-8")
+        title Byron Bay High School Day Tracker
+
+        link(href="https://fonts.googleapis.com/css?family=Catamaran|Patua+One&display=swap", rel="stylesheet")
+        meta(content="initial-scale=1", name="viewport")
+
+        link(rel="stylesheet", href="https://jschneiderprojects.com.au/css/master.css")
+        link(rel="stylesheet", href="/css/ui.css")
+
+    body
+        div#heading
+            header#header
+                nav
+                    a(href="https://jschneiderprojects.com.au")#img
+                        img(src="https://avatars2.githubusercontent.com/u/29561775?s=400&u=9cd8cb9…&v=4")
+                    a(href="/") Tracker
+                    a(href="/timetable") My Time Table
+                    a(href="/login") Log In
+                    a(href="/request-vip") Request VIP
+
+                script addEventListener('load', () => document.querySelector("#header").classList.add('load'));
+                script addEventListener('click', () => document.querySelector("header").classList.toggle("open"));
+
+            #buffer
+            #backdrop
+            #title= title || DayTracker
+
+        section#container
+            section#body
+                .card
+                    block content
+                footer#footer

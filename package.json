@@ -1,9 +1,21 @@
 {
     "name": "day_tracker",
     "version": "1.0.0",
-    "dependencies": {},
+    "dependencies": {
+        "bcryptjs": "latest",
+        "body-parser": "^1.19.0",
+        "express": "latest",
+        "morgan": "latest",
+        "needle": "^2.3.3",
+        "pg": "latest",
+        "pug": "^3.0.0"
+    },
     "devDependencies": {
+        "@types/bcryptjs": "latest",
+        "@types/express": "latest",
+        "@types/morgan": "latest",
         "@types/node": "^13.7.0",
+        "@types/pg": "latest",
         "@types/source-map-support": "^0.5.1",
         "source-map-support": "^0.5.16"
     }

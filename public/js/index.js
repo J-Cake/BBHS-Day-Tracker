@@ -1,7 +1,7 @@
 addEventListener("load", async function () {
 
     async function refresh() {
-        const day = await (await fetch('/get-day')).json();
+        const day = await (await fetch('/api/get-day')).json();
 
         document.querySelector("#day-indicator").innerHTML = day.friendly;
         document.querySelector("#viewer").innerHTML = `Today:`;
@@ -36,7 +36,7 @@ addEventListener("load", async function () {
     document.querySelector("#relative-calc-btn").addEventListener("click", async function () {
         const days = document.querySelector("#days").value;
 
-        const dayReq = await fetch(`/get-day?date=${days}&relative=true`);
+        const dayReq = await fetch(`/api/get-day?date=${days}&relative=true`);
         const req = await dayReq.json();
 
         if (!dayReq.ok)
@@ -56,7 +56,7 @@ addEventListener("load", async function () {
         if (!(date instanceof Date && !isNaN(date.getTime()))) {
             document.querySelector("#absolute-date .error").innerHTML = "Please select a valid date";
         } else {
-            const req = await fetch(`/get-day?date=${date.getTime()}`);
+            const req = await fetch(`/api/get-day?date=${date.getTime()}`);
             const day = await (req).json();
 
             if (!req.ok)

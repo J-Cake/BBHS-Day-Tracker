@@ -1,0 +1,13 @@
+@import url('https://logic.jschneiderprojects.com.au/app/remixicons.ttf');
+
+nav#calcs {
+    display: flex;
+}
+
+nav#calcs button {
+    margin: 5px;
+}
+
+.card {
+    width: 100%;
+}

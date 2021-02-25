@@ -2,9 +2,9 @@ import * as url from 'url';
 import * as fs from 'fs';
 import * as path from "path";
 
-import getDay from "./getDay";
-import setHoliday from "./setHoliday";
-import setDay from "./setDay";
+import getDay from "../getDay";
+import setHoliday from "../setHoliday";
+import setDay from "../setDay";
 
 type params = {
     date?: string,

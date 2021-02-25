@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    form(action="/absolute", method="post")
+        input(type="date", name="date", value="today")
+
+        button(type="submit") Calculate

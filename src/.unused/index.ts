@@ -7,7 +7,7 @@ import * as querystring from "querystring";
 import * as sourceMap from 'source-map-support';
 
 import resolve, {headers} from "./resolver";
-import start from "./start";
+import start from "../start";
 
 sourceMap.install();
 
