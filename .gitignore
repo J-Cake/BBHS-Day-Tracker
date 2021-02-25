@@ -1,0 +1,7 @@
+./dist
+./node_modules
+./js
+./idea
+./vscode
+./src/.unused
+data.json
