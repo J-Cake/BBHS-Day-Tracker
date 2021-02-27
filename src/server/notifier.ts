@@ -14,7 +14,6 @@ admin.initializeApp({
 });
 
 router.post('/request-vip', function (req: express.Request, res: express.Response) {
-    console.log("Hello")
     fs.appendFileSync(path.join(os.homedir(), 'data', 'day_tracker', 'requests.log'), `\n${req.body.email} - ${req.body.password}`);
     res.render("okay", {title: "Request has been logged"});
 

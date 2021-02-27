@@ -1,3 +1,4 @@
+import * as express from 'express';
 import {Router} from 'express';
 import getDay from "../API/getDay";
 import setHoliday from "../API/setHoliday";
@@ -5,6 +6,8 @@ import setDay from "../API/setDay";
 import userAPI from './userAPI';
 
 const router = Router();
+
+router.use('/user', userAPI);
 
 router.get('/get-day', async function (req, res) {
     try {
@@ -44,6 +47,9 @@ router.get('/holiday', async function (req, res) {
     res.json(await setHoliday(active === "true", reset === "true", key));
 });
 
-router.use('/user', userAPI);
+router.use(async function (req: express.Request, res: express.Response) {
+    res.status(404);
+    res.end('Error 404: Endpoint Not Found');
+})
 
 export default router;

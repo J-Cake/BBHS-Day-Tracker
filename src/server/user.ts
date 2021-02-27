@@ -3,7 +3,6 @@ import * as path from "path";
 import * as os from "os";
 
 import * as express from 'express';
-import * as cookieParser from 'cookie-parser';
 
 import {getDetails} from "../API/getDay";
 import secure, {Info} from "./secure";
@@ -17,31 +16,34 @@ declare module 'express' {
     }
 }
 
-user.use(cookieParser());
-user.use(function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    const userToken = req.cookies.token;
-    const userInfo = JSON.parse(fs.readFileSync(path.join(os.homedir(), 'data', 'day_tracker', 'users.json'), 'utf8'));
-
-    if (userToken in userInfo)
-        req.info = userInfo[userToken];
-    next();
-});
+export function friendly(day: string, calculated: boolean, weekday: boolean): string {
+    if (calculated)
+        if (weekday)
+            return `That's ${day}`;
+        else
+            return `Nothing that day, but the last day was ${day}`;
+    else if (weekday)
+        return `Today is ${day}`;
+    else
+        return `There's nothing on today. The last day was ${day}`;
+}
 
 export async function tracker(req: express.Request, res: express.Response, relative: boolean = false) {
     try {
-        const [dayNumber, day] = await getDetails(Number(req.query?.date), relative);
+        const [dayNumber, day, isWeekday, date] = await getDetails(typeof req.body?.date === "string" ? new Date(req.body.date).getTime() : Number(req.body?.date), relative);
 
         res.render('index', {
             title: "DayTracker",
-            day: `${req.query?.date ? "That would be" : "Today is"} ${day}`,
+            day: friendly(day, !!req.body?.date, isWeekday),
+            date: date,
             today: req.info ? req.info.timetable[dayNumber] : null
         });
     } catch (err) {
-        const [dayNumber, day] = await getDetails();
+        const [dayNumber, day, isWeekday] = await getDetails();
 
         res.render('index', {
             title: "DayTracker",
-            day: `Today is ${day}`,
+            day: friendly(day, !!req.body?.date, isWeekday),
             error: 'Invalid calculation',
             today: req.info ? req.info.timetable[dayNumber] : null
         })

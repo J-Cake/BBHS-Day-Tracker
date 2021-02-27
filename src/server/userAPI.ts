@@ -1,37 +1,25 @@
-import {Router} from 'express';
-// import {APIResponse, APISuccessCode} from '../API/API';
-// import getUserKey from "../API/db/getUserKey";
+import * as express from 'express';
+import {getDayNumber} from "../API/getDay";
 
-const router = Router();
+const router = express.Router();
 
-router.post("/request-login-key", async function (req, res) {
-    // const email: string = req.body.email;
-    // const password: string = req.body.password;
-    //
-    // const body: APIResponse = {
-    //     code: APISuccessCode.processing
-    // };
-    //
-    // if (/.[^.]+@.[^.]+(\..[^.]+)+/.test(email) && password.length >= 6) {
-    //     const userId = await getUserKey(email, password);
-    //
-    //     if (userId !== null)
-    //         body.body = userId;
-    //     else {
-    //         body.body = "The email and password don't match";
-    //         body.code = APISuccessCode.loginDenied
-    //     }
-    //
-    //     res.json(body);
-    // } else {
-    //     body.code = APISuccessCode.loginDenied;
-    //     body.body = "Login Failed.";
-    //
-    //     res.status(403);
-    //     res.json(body);
-    // }
-    res.status(501);
-    res.end("Unimplemented");
+router.use(async function (req: express.Request, res: express.Response, next: express.NextFunction) {
+    if (req.info)
+        return next();
+    res.status(401);
+    res.end('Not registered');
+});
+
+router.get('/timetable', async function (req: express.Request, res: express.Response) {
+    res.json(req.info.timetable);
+});
+
+router.get('/getSubjects', async function (req: express.Request, res: express.Response) {
+    const [info, isWeekday] = await getDayNumber(Number(req.query?.date), req.query?.relative === "true");
+
+    // console.log(req.info.timetable[info]);
+
+    res.json(isWeekday ? req.info.timetable[info] : []);
 });
 
 export default router;

@@ -22,15 +22,16 @@ const betweenHoliday = function (date: Date): boolean {
 };
 
 export default async function getDay(target?: number, relative?: boolean): Promise<string> {
-    return data.dayCycle[await getDayNumber(target, relative)]
+    return data.dayCycle[(await getDayNumber(target, relative))[0]]
 }
 
-export async function getDetails(target?: number, relative?: boolean): Promise<[number, string]> {
-    const number = await getDayNumber(target, relative);
-    return [number, data.dayCycle[number]];
+export async function getDetails(target?: number, relative?: boolean): Promise<[number, string, boolean, Date]> {
+    const [number, weekday, date] = await getDayNumber(target, relative);
+    return [number, data.dayCycle[number], weekday, date];
 }
 
-export async function getDayNumber(target?: number, relative?: boolean): Promise<number> {
+// day, isWeekday
+export async function getDayNumber(target?: number, relative?: boolean): Promise<[number, boolean, Date]> {
     if (target && target < 0)
         throw {
             code: 400,
@@ -46,7 +47,7 @@ export async function getDayNumber(target?: number, relative?: boolean): Promise
         if (target)
             if (relative) {
                 const date = new Date(await getCurrentTime());
-                console.log(date.toLocaleDateString(), date.getDate());
+                // console.log(date.toLocaleDateString(), date.getDate());
                 date.setDate(date.getDate() + target);
 
                 return new Date(date);
@@ -83,7 +84,7 @@ export async function getDayNumber(target?: number, relative?: boolean): Promise
     if (!target)
         setDay(data.dayCycle[day], keys.master);
 
-    return day;
+    return [day, data.activeDays.includes(targetDate.getDay()), targetDate];
 }
 
 (async function () {
