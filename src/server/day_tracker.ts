@@ -29,9 +29,9 @@ app.use(express.static(path.join(process.cwd(), "public")));
 app.use("/", user);
 app.use("/api", router);
 
-const port = 5493;
+const port = Number(process.argv[2]) || 5491;
 
-app.listen(port, function (): void {
+app.listen(isNaN(port) ? 5491 : port, function (): void {
     console.log("Listening on", port);
     start();
 });
