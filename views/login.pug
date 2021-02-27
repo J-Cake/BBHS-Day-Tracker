@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    form(method="post")
+        label(for="email") Please enter your Email
+        input(type="email", name="email", placeholder="john.doe@domain.com")#email
+
+        label(for="password") Please enter your password
+        input(type="password", name="password", placeholder="password")#password
+
+        button(type="submit") Log In

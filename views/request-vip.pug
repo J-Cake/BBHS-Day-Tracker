@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1 Please enter the necessary information below
+    form(method="post")
+        label(for="email") Please enter an email you wish to use to sign in
+        input(name="email", type="email", placeholder="Email", required)#email
+
+        label(for="password") Please enter a password
+        input(name="password", type="password", placeholder="Password", required)#password
+
+        button(type="submit") Send Request

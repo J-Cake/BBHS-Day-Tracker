@@ -3,6 +3,16 @@ extends layout
 block content
     h1=day
 
+    if error
+        p=error
+
+    #today
+        if today
+            each i in today
+                div.day=i
+        else
+            p In order to view your day, please #[a(href="/request-vip") request to join].
+
     nav#calcs
         a(href="/absolute")
             button Absolute Calculator

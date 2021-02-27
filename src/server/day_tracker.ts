@@ -1,12 +1,16 @@
-import * as express from 'express';
 import * as path from "path";
 import * as fs from "fs";
+
+import * as express from 'express';
 import * as morgan from 'morgan';
 import * as bodyParser from 'body-parser';
+import * as sm from 'source-map-support'
 
 import router from './router';
 import user from './user';
 import start from "./start";
+
+sm.install();
 
 const app = express();
 

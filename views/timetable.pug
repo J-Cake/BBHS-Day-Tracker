@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1 Your Timetable
+
+    table#timetable
+        thead
+            tr
+                td Period 1
+                td Recess - 20
+                td Period 2
+                td Recess - 10
+                td Period 3
+                td Lunch - 40
+                td Period 4
+                td End
+        tbody
+            each day in timetable
+                tr
+                    each period in day
+                        td= period
+                        td

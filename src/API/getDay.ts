@@ -22,6 +22,15 @@ const betweenHoliday = function (date: Date): boolean {
 };
 
 export default async function getDay(target?: number, relative?: boolean): Promise<string> {
+    return data.dayCycle[await getDayNumber(target, relative)]
+}
+
+export async function getDetails(target?: number, relative?: boolean): Promise<[number, string]> {
+    const number = await getDayNumber(target, relative);
+    return [number, data.dayCycle[number]];
+}
+
+export async function getDayNumber(target?: number, relative?: boolean): Promise<number> {
     if (target && target < 0)
         throw {
             code: 400,
@@ -74,7 +83,7 @@ export default async function getDay(target?: number, relative?: boolean): Promi
     if (!target)
         setDay(data.dayCycle[day], keys.master);
 
-    return data.dayCycle[day];
+    return day;
 }
 
 (async function () {

@@ -4,9 +4,12 @@
     "dependencies": {
         "bcryptjs": "latest",
         "body-parser": "^1.19.0",
+        "cookie-parser": "^1.4.5",
         "express": "latest",
+        "firebase-admin": "^9.5.0",
         "morgan": "latest",
         "needle": "^2.3.3",
+        "nodemailer": "^6.5.0",
         "pg": "latest",
         "pug": "^3.0.0"
     },
@@ -15,6 +18,7 @@
         "@types/express": "latest",
         "@types/morgan": "latest",
         "@types/node": "^13.7.0",
+        "@types/nodemailer": "^6.4.0",
         "@types/pg": "latest",
         "@types/source-map-support": "^0.5.1",
         "source-map-support": "^0.5.16"
