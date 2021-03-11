@@ -21,5 +21,5 @@ interface WorldTimeAPIResponse {
 export default async function getCurrentTime(): Promise<number> {
     const res: WorldTimeAPIResponse = (await needle('get', 'worldtimeapi.org/api/timezone/Australia/Sydney', {json: true})).body;
 
-    return res.unixtime * 1000; // doens't include milliseconds
+    return res.unixtime * 1000; // doesn't include milliseconds
 }

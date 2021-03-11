@@ -17,6 +17,7 @@
         "@types/bcryptjs": "latest",
         "@types/express": "latest",
         "@types/morgan": "latest",
+        "@types/needle": "^2.5.1",
         "@types/node": "^13.7.0",
         "@types/nodemailer": "^6.4.0",
         "@types/pg": "latest",

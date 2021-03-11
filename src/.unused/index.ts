@@ -7,7 +7,8 @@ import * as querystring from "querystring";
 import * as sourceMap from 'source-map-support';
 
 import resolve, {headers} from "./resolver";
-import start from "../start";
+import getDay from "../API/getDay";
+// import start from "../start";
 
 sourceMap.install();
 
@@ -20,10 +21,6 @@ const server = http.createServer(function (req, res) {
 
     function write(data?: { code: number, type: string, body: any }) {
         if (data) {
-            // const requestLog: string = [`"${req.method.toUpperCase()}"`, new Date().toLocaleString(), urlParsed.pathname, urlParsed.query ? Object.keys(urlParsed.query) : "-", data.code, data.type, data.body.constructor.name].join(" ").trim();
-            // console.log(requestLog);
-            // fs.appendFileSync(path.join(process.cwd(), ".request.log"), requestLog + "\n", "utf8");
-
             res.writeHead(data.code || 200, {
                 "Content-type": data.type
             });
@@ -72,9 +69,8 @@ const server = http.createServer(function (req, res) {
 
 const port = 5492;
 
-server.listen(port, function (): void {
+server.listen(port, async function (): Promise<void> {
     console.log("listening on port", port);
     console.warn("It is important to note that the calculator will get out of sync if the server is stopped, the date changes back and then restarted.");
-
-    start();
+    await getDay();
 });

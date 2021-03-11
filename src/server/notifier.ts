@@ -7,23 +7,27 @@ import * as express from "express";
 
 const router = express.Router();
 
-const serviceAccount = JSON.parse(fs.readFileSync(path.join(os.homedir(), 'data', 'ADMIN', 'firebase-key.json'), 'utf8'));
+const key = path.join(os.homedir(), 'data', 'ADMIN', 'firebase-key.json');
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
+if (fs.existsSync(key)) {
+    const serviceAccount = JSON.parse(fs.readFileSync(key, 'utf8'));
 
-router.post('/request-vip', function (req: express.Request, res: express.Response) {
-    fs.appendFileSync(path.join(os.homedir(), 'data', 'day_tracker', 'requests.log'), `\n${req.body.email} - ${req.body.password}`);
-    res.render("okay", {title: "Request has been logged"});
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount)
+    });
 
-    const devices: string[] = Object.values(JSON.parse(fs.readFileSync(path.join(os.homedir(), 'data', 'ADMIN', 'access.json'), 'utf8')) as { [email: string]: string[] }).flat(Infinity) as string[];
+    router.post('/request-vip', function (req: express.Request, res: express.Response) {
+        fs.appendFileSync(path.join(os.homedir(), 'data', 'day_tracker', 'requests.log'), `\n${req.body.email} - ${req.body.password}`);
+        res.render("okay", {title: "Request has been logged"});
 
-    if (devices.length > 0)
-        admin.messaging().sendToDevice(devices, {
-            notification: {body: `New Request: ${req.body.email}`},
+        const devices: string[] = Object.values(JSON.parse(fs.readFileSync(path.join(os.homedir(), 'data', 'ADMIN', 'access.json'), 'utf8')) as { [email: string]: string[] }).flat(Infinity) as string[];
 
-        });
-});
+        if (devices.length > 0)
+            admin.messaging().sendToDevice(devices, {
+                notification: {body: `New Request: ${req.body.email}`},
+
+            });
+    });
+}
 
 export default router;

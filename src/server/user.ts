@@ -30,7 +30,7 @@ export function friendly(day: string, calculated: boolean, weekday: boolean): st
 
 export async function tracker(req: express.Request, res: express.Response, relative: boolean = false) {
     try {
-        const [dayNumber, day, isWeekday, date] = await getDetails(typeof req.body?.date === "string" ? new Date(req.body.date).getTime() : Number(req.body?.date), relative);
+        const [dayNumber, day, isWeekday, date] = await getDetails(!relative ? new Date(req.body.date).getTime() : Number(req.body?.date), relative);
 
         res.render('index', {
             title: "DayTracker",
@@ -39,12 +39,13 @@ export async function tracker(req: express.Request, res: express.Response, relat
             today: req.info ? req.info.timetable[dayNumber] : null
         });
     } catch (err) {
-        const [dayNumber, day, isWeekday] = await getDetails();
+        const [dayNumber, day, isWeekday, date] = await getDetails();
 
         res.render('index', {
             title: "DayTracker",
             day: friendly(day, !!req.body?.date, isWeekday),
             error: 'Invalid calculation',
+            date: date,
             today: req.info ? req.info.timetable[dayNumber] : null
         })
     }
@@ -66,8 +67,11 @@ user.get('/relative', async function (req: express.Request, res: express.Respons
     });
 });
 
-user.post(['/absolute', '/relative'], async function (req: express.Request, res: express.Response) {
-    await tracker(req, res, req.path === '/relative');
+user.post('/absolute', async function (req: express.Request, res: express.Response) {
+    await tracker(req, res, false);
+});
+user.post('/relative', async function (req: express.Request, res: express.Response) {
+    await tracker(req, res, true);
 });
 
 user.get('/login', function (req: express.Request, res: express.Response) {

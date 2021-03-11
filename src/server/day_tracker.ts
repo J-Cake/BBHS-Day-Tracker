@@ -10,7 +10,7 @@ import * as sm from 'source-map-support'
 
 import router from './router';
 import user from './user';
-import start from "./start";
+import getDay from "../API/getDay";
 
 sm.install();
 
@@ -43,7 +43,7 @@ app.use("/", user);
 
 const port = Number(process.argv[2]) || 5491;
 
-app.listen(isNaN(port) ? 5491 : port, function (): void {
+app.listen(isNaN(port) ? 5491 : port, async function (): Promise<void> {
     console.log("Listening on", port);
-    start();
+    await getDay();
 });
