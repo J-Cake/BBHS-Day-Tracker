@@ -2,8 +2,7 @@ extends layout
 
 block content
     h1=day
-    p #{["Su", Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][date.getDay()]}, #{date.getDate()}. #{["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Auf", "Sep", "Oct", "Nov", "Dec"][date.getMonth()]}, #{date.getUTCFullYear()}
-    	// ^ Fucking Americans
+    p #{["Sun", Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][date.getDay()]}, #{date.getDate()}. #{["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Auf", "Sep", "Oct", "Nov", "Dec"][date.getMonth()]}, #{date.getUTCFullYear()}
 
     if error
         p=error
